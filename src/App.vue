@@ -1,24 +1,22 @@
 <template>
-<div class="project-container">
-  <div class="project-title">
-    <h2>
+  <div class="project-container">
+    <h2 class="project-title">
       {{projectTitle}}
     </h2>
+    <div class="todolist">
+      <ul>
+        <li class="todo-item" v-for="(todo, index) in todolist" :key="todo.id">
+          <input class="task-complete-checkbox" type="checkbox" @change="complete(index)">
+          <label class="todo-content">{{todo.name}}</label>
+          <button @click="deleteTodo" class="btn btn-danger"> delete </button>
+        </li>
+      </ul>
+    </div>
+    <div class="add-todo-bar">
+      <input class="add-todo-input" type="text" v-model="taskName">
+      <button @click="addTodo" class="btn btn-danger"> add </button>
+    </div>
   </div>
-  <div class="todolist">
-    <ul>
-      <li class="todo-item" v-for="(todo, index) in todolist" :key="todo.id">
-        <input class="task-complete-checkbox" type="checkbox" @change="complete(index)">
-        <label class="todo-content">{{todo.name}}</label>
-      </li>
-    </ul>
-  </div>
-  <div class="add-todo-bar">
-    <input class="add-todo-input" type="text" v-model="taskName">
-    <button @click="addTodo" class="btn btn-danger"> add </button>
-  </div>
-</div>
-
 </template>
 
 <script>
@@ -35,14 +33,23 @@ export default {
   },
   methods: {
     addTodo() {
+      if (this.taskName.trim() == "") {
+        this.taskName = ''
+        return
+      }
       this.todolist.push({
         name: this.taskName,
         id : this.id
       })
       this.id += 1
+      this.taskName = ""
       console.log(this.todolist)
     },
     complete(taskIndex) {
+      this.todolist.splice(taskIndex, 1)
+      console.log(this.todolist)
+    },
+    deleteTodo(taskIndex) {
       this.todolist.splice(taskIndex, 1)
       console.log(this.todolist)
     }
@@ -51,59 +58,95 @@ export default {
 </script>
 
 <style>
+html, body {
+  margin: 0!important;
+  padding: 0!important;
+  background-color: #e2e8f0;
+  height: 100%;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 .project-container {
-  margin: 15px;
+  margin: 0 15px;
   background: #ffffff;
+  border-radius: 30px; 
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .project-container {
+    margin: 0 40px;
+  }
+}
+
+.project-title {
+  margin-top: 15px
 }
 .todolist {
   margin-bottom: 30px;
-  min-height: 70vh;
+  min-height: 65vh;
 }
 @media (min-height: 667px) {
   .todolist {
-    min-height: 75vh;
+    min-height: 70vh;
   }
 }
 
 @media (min-height: 812px) {
   .todolist {
-    min-height: 80vh;
+    min-height: 75vh;
   }
 }
 
+ul {
+  padding: 0
+}
 .todo-item {
   border-bottom: 1px solid #f0f0f0;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  padding: 10px;
+  margin: 10px;
+  align-items: center;
+  height: 50px;
 }
 .todo-content {
   line-height: 21px;
+  margin-right: 20px;
+  flex-grow: 1;
+  text-align: start;
 }
 .task-complete-checkbox {
-  margin-right: 5px;
+  margin-right: 15px;
+  transform: scale(1.5);
 }
 .add-todo-bar {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin: 15px;
 }
 .add-todo-input {
-  margin-right: 25px;
+  flex-grow: 1;
   height: 40px;
   font-size: 15px;
   border: 1px solid #dce4ec;
   border-radius: 2em;
   transition: border 250ms ease-out;
-  padding: 0px 10px;
+  margin: 0px 10px;
+  box-sizing: border-box;
+  padding-left: 10px;
+  max-width: 500px;
 
 }
 
@@ -122,14 +165,10 @@ export default {
   transition: 250ms ease-out;
 }
 
-.btn:hover {
+.btn:active{
   color: #fff;
   background: #e74c3c;
 }
 
-.btn:focus {
-  color: #fff;
-  outline: none;
-}
 
 </style>
