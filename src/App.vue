@@ -57,34 +57,14 @@ export default {
 }
 </script>
 
-<style>
-html, body {
-  margin: 0!important;
-  padding: 0!important;
-  background-color: #e2e8f0;
-  height: 100%;
-}
+<style lang="scss" scoped>
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
 .project-container {
   margin: 0 15px;
   background: #ffffff;
   border-radius: 30px; 
   width: 100%;
-}
-
-@media (min-width: 768px) {
-  .project-container {
+  @media (min-width: 768px) {
     margin: 0 40px;
   }
 }
@@ -92,18 +72,15 @@ html, body {
 .project-title {
   margin-top: 15px
 }
+
 .todolist {
   margin-bottom: 30px;
   min-height: 65vh;
-}
-@media (min-height: 667px) {
-  .todolist {
+  @media (min-height: 667px) {
     min-height: 70vh;
   }
-}
 
-@media (min-height: 812px) {
-  .todolist {
+  @media (min-height: 812px) {
     min-height: 75vh;
   }
 }
@@ -171,4 +148,24 @@ ul {
 }
 
 
+</style>
+
+<style lang="scss">
+html, body {
+  margin: 0!important;
+  padding: 0!important;
+  background-color: #e2e8f0;
+  height: 100%;
+}
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
 </style>
