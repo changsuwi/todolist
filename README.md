@@ -1,5 +1,10 @@
 # todolist
 
+a simple todolist in Vue.js, Scss
+Front-End Framework: Vue.js
+Linter: ESLint
+CSS Framework: Balm UI (only use toast component)
+
 ## Project setup
 ```
 npm install
@@ -20,5 +25,3 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
