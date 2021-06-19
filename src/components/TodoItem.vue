@@ -4,25 +4,38 @@
       class="task-complete-checkbox"
       type="checkbox"
       @change="completeTodo"
-    />
+    >
     <label class="todo-content">{{ todo.name }}</label>
-    <button class="btn btn-danger" @click="deleteTodo">delete</button>
+    <button
+      class="btn btn-danger"
+      @click="deleteTodo"
+    >
+      delete
+    </button>
   </div>
 </template>
 <script>
 export default {
   props: {
-    todo: Object,
+    todo: {
+      type: Object,
+      default() {
+        return {
+          name: ''
+        }
+      }
+    }
   },
+  emits: ['complete', 'delete'],
   methods: {
     completeTodo() {
-      this.$emit("complete");
+      this.$emit("complete")
     },
     deleteTodo() {
-      this.$emit("delete");
+      this.$emit("delete")
     },
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 .todo-item {

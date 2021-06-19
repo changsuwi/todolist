@@ -5,7 +5,10 @@
     </h2>
     <div class="todolist">
       <ul>
-        <li v-for="(todo, index) in todolist" :key="todo.id">
+        <li
+          v-for="(todo, index) in todolist"
+          :key="todo.id"
+        >
           <todo-item
             :todo="todo"
             @complete="completeTodo(index)"
@@ -15,57 +18,84 @@
       </ul>
     </div>
     <div class="add-todo-bar">
-      <input v-model="taskName" class="add-todo-input" type="text" />
-      <button class="btn btn-danger" @click="addTodo">add</button>
+      <input
+        v-model="taskName"
+        class="add-todo-input"
+        type="text"
+      >
+      <button
+        class="btn btn-danger"
+        @click="addTodo"
+      >
+        add
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import TodoItem from "./components/TodoItem.vue";
+import TodoItem from "./components/TodoItem.vue"
 export default {
   name: "App",
   components: {
     TodoItem,
   },
-  data: () => {
+  data() {
     return {
       projectTitle: "Todo List",
       taskName: "",
       todolist: [],
       id: 0,
-    };
+    }
+  },
+  mounted() {
+    if(localStorage["todolist"]) {
+      try {
+        this.todolist = JSON.parse(localStorage.getItem('todolist'))
+      }
+      catch {
+        this.todolist = []
+      }
+      
+    }
+    
   },
   methods: {
     addTodo() {
       if (this.taskName.trim() == "") {
-        this.taskName = "";
-        return;
+        this.taskName = ""
+        return
       }
       this.todolist.push({
         name: this.taskName,
         id: this.id,
-      });
-      this.id += 1;
-      this.taskName = "";
-      console.log("add", this.todolist);
+      })
+      this.id += 1
+      this.taskName = ""
+      console.log("add", this.todolist)
+      
+      localStorage.setItem('todolist', JSON.stringify(this.todolist))
     },
     completeTodo(taskIndex) {
-      this.todolist.splice(taskIndex, 1);
-      console.log("complete", this.todolist);
+      this.todolist.splice(taskIndex, 1)
+      console.log("complete", this.todolist)
       this.$toast({
         message: "todo has been completed",
         timeoutMs: 3500,
         className: "success-toast",
-        position: "top",
-      });
+        position: "top"
+      })
+
+      localStorage.setItem('todolist', JSON.stringify(this.todolist))
     },
     deleteTodo(taskIndex) {
-      this.todolist.splice(taskIndex, 1);
-      console.log("delete", this.todolist);
+      this.todolist.splice(taskIndex, 1)
+      console.log("delete", this.todolist)
+
+      localStorage.setItem('todolist', JSON.stringify(this.todolist))
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -76,6 +106,12 @@ export default {
 
   @media (min-width: 768px) {
     margin: 0 40px;
+    width: 500px;
+  }
+
+  @media (min-width: 1366px) {
+    margin: 0 40px;
+    width: 900px;
   }
 }
 
