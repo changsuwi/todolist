@@ -1,6 +1,10 @@
 <template>
   <div class="todo-item">
-    <input class="task-complete-checkbox" type="checkbox" @change="complete" />
+    <input
+      class="task-complete-checkbox"
+      type="checkbox"
+      @change="completeTodo"
+    />
     <label class="todo-content">{{ todo.name }}</label>
     <button class="btn btn-danger" @click="deleteTodo">delete</button>
   </div>
@@ -11,12 +15,10 @@ export default {
     todo: Object,
   },
   methods: {
-    complete() {
+    completeTodo() {
       this.$emit("complete");
-      // console.log("complete");
     },
     deleteTodo() {
-      // console.log("delete");
       this.$emit("delete");
     },
   },

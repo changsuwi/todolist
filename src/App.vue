@@ -8,8 +8,8 @@
         <li v-for="(todo, index) in todolist" :key="todo.id">
           <todo-item
             :todo="todo"
-            v-on:complete="completeTodo(index)"
-            v-on:delete="deleteTodo(index)"
+            @complete="completeTodo(index)"
+            @delete="deleteTodo(index)"
           />
         </li>
       </ul>
@@ -53,6 +53,12 @@ export default {
     completeTodo(taskIndex) {
       this.todolist.splice(taskIndex, 1);
       console.log("complete", this.todolist);
+      this.$toast({
+        message: "todo has been completed",
+        timeoutMs: 3500,
+        className: "success-toast",
+        position: "top",
+      });
     },
     deleteTodo(taskIndex) {
       this.todolist.splice(taskIndex, 1);
@@ -151,5 +157,11 @@ body {
 .btn:active {
   color: #fff;
   background: #e74c3c;
+}
+
+.success-toast {
+  .mdc-snackbar__surface {
+    background: rgba(28, 151, 28, 0.7);
+  }
 }
 </style>
